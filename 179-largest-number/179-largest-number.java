@@ -4,8 +4,8 @@ class Solution {
         for (int i = 0; i < nums.length; i++) {
             asStrs[i] = String.valueOf(nums[i]);
         }
-         Arrays.sort(asStrs, (a,b) ->(b+a).compareTo(a+b));
-
+        Arrays.sort(asStrs, (a,b) ->(b+a).compareTo(a+b));
+  // Arrays.sort(asStrs, (a,b) ->b.compareTo(a));
         if (asStrs[0].equals("0")) {
             return "0";
         }

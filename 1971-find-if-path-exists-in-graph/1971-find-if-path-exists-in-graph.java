@@ -10,13 +10,14 @@ class Solution {
             adj.get(edge[1]).add(edge[0]);
         }
         
-        Stack <Integer> stack = new Stack<>();
-        stack.push(source);
+        Queue <Integer> queue = new LinkedList<>();
+        queue.add(source);
+        
         boolean [] seen = new boolean[n];
         
         
-        while(!stack.isEmpty()){
-            int curr  = stack.pop();
+        while(!queue.isEmpty()){
+            int curr  = queue.poll();
             if(curr == destination){
                 return true;
             }
@@ -25,7 +26,7 @@ class Solution {
             }
             seen[curr] =true;
             for(int num : adj.get(curr)){
-                stack.push(num);
+                queue.add(num);
             }
             
         }

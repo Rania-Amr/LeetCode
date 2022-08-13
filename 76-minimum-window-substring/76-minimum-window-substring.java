@@ -26,7 +26,7 @@ class Solution {
 
                 char left = s.charAt(start++);
                 if(map.containsKey(left)){
-                  if(map.get(left) == 0){
+                  if(map.get(left) >= 0){
                       match--;
                   }
                     map.put(left, map.get(left)+1);

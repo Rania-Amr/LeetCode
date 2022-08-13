@@ -6,7 +6,7 @@ class Solution {
         }
         int start  = 0;
         int size = Integer.MAX_VALUE;
-        int starString =0;
+        int startString =0;
         String word;
         int match =0;
         for(int end  = 0; end< s.length();end++){
@@ -20,11 +20,10 @@ class Solution {
 
             while(match == t.length()){
                 if(size > end -start +1){
-                    starString = start;
+                    startString = start;
                     size = end-start +1;
                 }
-                
-                
+
                 char left = s.charAt(start++);
                 if(map.containsKey(left)){
                   if(map.get(left) == 0){
@@ -33,14 +32,10 @@ class Solution {
                     map.put(left, map.get(left)+1);
                 }
                 
-            }
-            
-            
-            
-            
+            }   
             
         }
-        return size > s.length()?  "" : s.substring(starString,starString+size);
+        return size > s.length()?  "" : s.substring(startString,startString+size);
         
         
     }

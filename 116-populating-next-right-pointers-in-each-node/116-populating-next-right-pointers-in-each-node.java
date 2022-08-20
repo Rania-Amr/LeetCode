@@ -23,30 +23,29 @@ class Node {
 
 class Solution {
     public Node connect(Node root) {
-         if(root == null){
-             return root;
+        if(root == null){
+      return root;
+    }
+     ArrayDeque<Node> queue =new ArrayDeque<>();
+     queue.addLast(root);
+   
+     while(!queue.isEmpty()){
+        
+       int n = queue.size();
+       for(int i =0;i<n;i++){
+         Node temp =queue.removeFirst();
+           if(i < n-1 ){
+              temp.next = queue.getFirst();
+           }         
+         if(temp.left !=null){
+            queue.addLast(temp.left);
          }
-        ArrayDeque<Node> queue = new ArrayDeque<>();
-        queue.addLast(root);
-        while(!queue.isEmpty()){
-            int size =queue.size();
-            for(int i =0 ; i< size;i++){
-                Node temp =queue.removeFirst();
-                if(i<size-1){
-                    temp.next =queue.getFirst();
-                }
-                  
-                if(temp.left !=null){
-                    queue.addLast(temp.left);
-                }
-                if(temp.right !=null){
-                    queue.addLast(temp.right);
-                }
-              
-            }
-        }
+         if(temp.right !=null){
+            queue.addLast(temp.right);
+         }
+       }
+
+     }
         return root;
-        
-        
     }
 }

@@ -2,41 +2,52 @@ class Solution {
     public boolean backspaceCompare(String s, String t) {
         int i = s.length()-1;
         int j = t.length()-1;
-        int sSkip = 0;
-        int tSkip = 0;
-        
-        while(i >= 0 || j >= 0){
-            while(i >= 0 ){
-                
-            if(s.charAt(i) == '#'){
+        int sRemove =0;
+        int tRemove =0;
+        /*
+"ab##"
+"c#d#"
+i=1
+j=2
+remove1 =2
+remove2 =1
+
+*/
+        while( i >=0 || j >= 0){
+            while( i >=0 ){
+                if(s.charAt(i) =='#'){
+                sRemove++;
                 i--;
-                sSkip++;
-            }else if(sSkip >0){
-                i--;
-                sSkip--;
-            }else{
-                break;
-            }
-            }
+                }else if(sRemove >0){
+                   i--;
+                sRemove--;   
+                }else{
+                    break;
+                }
             
-            while(j>= 0){ 
-                if(t.charAt(j)=='#'){
+            }
+            while(j >= 0 ){
+              if( t.charAt(j)=='#'){
+                tRemove++;
+                j--;}
+                else if( tRemove >0){
                 j--;
-                tSkip++;
-            }else if(tSkip>0){
-                  tSkip--;j--;  
+                tRemove--;
             }else{
                     break;
                 }
-            }            
-            if(i >= 0 && j >= 0 &&t.charAt(j) != s.charAt(i)){
+            }
+           
+          
+            if(j>=0 && i >=0 && s.charAt(i)!= t.charAt(j)){
                 return false;
             }
-            i--;
-            j--;
+            
+            if(i>=0 != j>=0){
+                return false;
+            }
+            j--;i--;
         }
-        if( j !=i) {return false;}
-        else{
-        return true;}
+        return true;
     }
 }

@@ -1,37 +1,37 @@
 class Solution {
     public boolean validPath(int n, int[][] edges, int source, int destination) {
-        List<List<Integer>> adj = new ArrayList<>();
-        for(int i =0; i<n;i++ ){
+     List <List <Integer>> adj =new ArrayList<>();
+        for(int i =0; i< n;i++){
             adj.add(new ArrayList<>());
         }
-        
-        for(int []edge: edges ){
+        for(int[] edge : edges ){
             adj.get(edge[0]).add(edge[1]);
             adj.get(edge[1]).add(edge[0]);
         }
-        
-        Queue <Integer> queue = new LinkedList<>();
-        queue.add(source);
-        
-        boolean [] seen = new boolean[n];
-        
-        
-        while(!queue.isEmpty()){
-            int curr  = queue.poll();
-            if(curr == destination){
+        boolean [] visited = new boolean[n];
+        Arrays.fill(visited,false);
+        ArrayDeque<Integer> stack  =new ArrayDeque<>();
+        stack.addFirst(source);
+        while(!stack.isEmpty()){
+            int num =stack.removeFirst();
+            if(num == destination){
                 return true;
             }
-            if(seen[curr]){
-                continue;
+            visited[num] =true;
+            for(int child: adj.get(num)){
+                if(!visited[child]){
+                    stack.addFirst(child);
+                }
             }
-            seen[curr] =true;
-            for(int num : adj.get(curr)){
-                queue.add(num);
-            }
-            
         }
-        
         return false;
-        
     }
+    
+    /*
+    
+    
+    
+    
+    
+    */
 }

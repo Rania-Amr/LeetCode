@@ -1,52 +1,53 @@
 class Solution {
     public int[] findOrder(int n, int[][] prerequisites) {
-        int [] order = new int [n];
-        if(n == 0){
-            return order;
-        }
+        //n =2
+        //prerequisites = [[0,1]]
         
-        if(prerequisites == null ||  prerequisites.length ==0){
-            for(int i = 0; i < n; i++){
-                order[i] = i;
+        int[] result = new int[n];// []
+        if(n ==0){
+            return result;
+        }
+        if(prerequisites == null || prerequisites.length ==0){
+            for (int i = 0; i < n; i++) {
+                result[i] = i;
             }
-            return order;
+            return result;
         }
-        int [] degree = new int [n];
-        
-        for(int [] arr : prerequisites){
-            degree[arr[0]]++;
+
+        //[1,0]
+        int[] indegree =new int[n];
+        for(int [] arr:prerequisites ){
+            indegree[arr[0]]++;
+        }//[0]
+        ArrayDeque<Integer> zeroQueue =new ArrayDeque<>();
+         for(int i = 0; i < indegree.length; i++ ){
+             if(indegree[i] ==0){
+                 zeroQueue.addLast(i);
+             }
         }
-        
-        ArrayDeque<Integer> queue =new ArrayDeque<>();
-        
-        for(int i = 0; i < n; i++){
-            if(degree[i] == 0){
-                queue.addLast(i);
-            }
+        if (zeroQueue.isEmpty()) {
+            return new int[0];
         }
-        int index =0;
-        while(!queue.isEmpty()){
-            
-            int number = queue.removeFirst();
-            order[index] = number;
-            index++;
-            for(int [] arr :prerequisites){
-                if(arr[1] == number ){
-                    degree[arr[0]]--;
-                    if(  degree[arr[0]] == 0){
-                         queue.addLast(arr[0]);
+        int i =0;
+        while(!zeroQueue.isEmpty()){
+            int num = zeroQueue.removeFirst();
+            result[i] =num;
+            i++;
+            for(int [] pre :prerequisites){
+                if(pre[1] ==num){
+                    indegree[pre[0]]--;
+                    if (indegree[pre[0]] == 0) {
+                        zeroQueue.addLast(pre[0]);
                     }
                 }
             }
-        
         }
-        
-          for(int i = 0; i < n; i++){
-            if(degree[i] != 0){
-              return new int[0];
+         for (int in : indegree) {
+            if (in != 0) {
+                return new int[0];
             }
         }
-        return order;
-        
+
+        return result;
     }
 }

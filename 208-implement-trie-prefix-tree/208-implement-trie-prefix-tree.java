@@ -1,52 +1,47 @@
-class Trie {
-    class TrieNode{
+class Trie {   
+    class TriesNode{
         public boolean isWord;
-        public Map <Character, TrieNode> childern = new HashMap<>();
-   
+        public Map<Character,TriesNode>childernMap=new HashMap<>();
     }
-    private TrieNode root ;
+    TriesNode root ;
     public Trie() {
-        root = new TrieNode();
+        root=new TriesNode();
     }
     
     public void insert(String word) {
-        TrieNode cur = root;
-        for(int i = 0; i < word.length();i++){
-            char ch = word.charAt(i);
-            if(cur.childern.get(ch) == null){
-                cur.childern.put(ch,new TrieNode());
-                
+          TriesNode cur =root;
+        for(int i=0;i<word.length();i++){
+            char ch =word.charAt(i);
+            if(!cur.childernMap.containsKey(ch)){
+                cur.childernMap.put(ch,new TriesNode());
             }
-           cur = cur.childern.get(ch);
+            cur =cur.childernMap.get(ch);
         }
         cur.isWord =true;
     }
     
     public boolean search(String word) {
-        TrieNode cur = root;
-        for(int i = 0; i < word.length();i++){
-            char ch = word.charAt(i);
-            if(cur.childern.get(ch) == null){
+        TriesNode cur =root;
+        for(int i=0;i<word.length();i++){
+            char ch =word.charAt(i);
+            if(!cur.childernMap.containsKey(ch)){
                 return false;
-                
             }
-            cur = cur.childern.get(ch);
+            cur =cur.childernMap.get(ch);
         }
-        return cur.isWord;
-            
+       return cur.isWord ;
     }
     
     public boolean startsWith(String prefix) {
-        TrieNode cur = root;
-        for(int i = 0; i < prefix.length();i++){
-            char ch = prefix.charAt(i);
-            if(cur.childern.get(ch) == null){
+           TriesNode cur =root;
+        for(int i=0;i<prefix.length();i++){
+            char ch =prefix.charAt(i);
+            if(!cur.childernMap.containsKey(ch)){
                 return false;
-                
             }
-            cur = cur.childern.get(ch);
+            cur =cur.childernMap.get(ch);
         }
-        return true;
+       return true;
     }
 }
 

@@ -16,19 +16,25 @@ class Solution {
         for(int i = 0; i < n ; i++){
             roomsAvailable.add(new Pair(i, 0));
         }
-        for(int i=0;i<meetings.length;i++) {
-            int meetingStart=meetings[i][0];
-            int meetingEnd=meetings[i][1];
-            while(!roomsBusy.isEmpty()&&(roomsAvailable.isEmpty()||roomsBusy.peek().end<=meetingStart)) {
+        
+        for(int i = 0; i < meetings.length; i++) {
+            int meetingStart = meetings[i][0];
+            int meetingEnd = meetings[i][1];
+            while(!roomsBusy.isEmpty() && (roomsAvailable.isEmpty() || roomsBusy.peek().end <= meetingStart)) {
                 roomsAvailable.add(roomsBusy.remove());
             }
             Pair nextRoom = roomsAvailable.remove();
             count[nextRoom.index]++;
-            nextRoom.end=Math.max(meetingEnd,meetingEnd-meetingStart+nextRoom.end);
+            nextRoom.end = Math.max(meetingEnd, meetingEnd - meetingStart + nextRoom.end);
             roomsBusy.add(nextRoom);
         }
-        int max=0;
-        for(int i=1;i<count.length;i++) if(count[i]>count[max]) max=i;
+        int max = 0;
+        for(int i = 1; i <count.length ; i++) {
+              if(count[i] > count[max]) {
+                  max = i;
+              }
+        }
+          
         return max;
     }
    
